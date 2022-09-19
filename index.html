@@ -1,0 +1,90 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <title>Document</title>
+  <style>
+    img {
+      height: 150px;
+      width: 150px;
+      padding: 3px;
+      border: 1px solid #8B0000;
+    }
+
+    span {
+      margin: 4px;
+    }
+    #newuserform, #uploadform {
+      display:none;
+    }
+    input[type='radio'] {
+      display: inline-block;
+    }
+    .message {
+      background-color: red;
+      color: white;
+      margin: 5px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <label class="message"></label>
+    <form id="newuserform" method="post" enctype="multipart/form-data" class="row g-3">
+      <h2>User registrieren</h2>
+      <div class="col-md-6">
+        <input type="text" name="user" id="user" placeholder="Username" required class="form-control">
+        <input type="password" name="password" id="password" placeholder="Password" required class="form-control">
+        <input type="text" name="name" id="name" placeholder="Name" class="form-control">
+        <input type="text" name="color" id="color" placeholder="Lieblingsfarbe" class="form-control">
+        <input type="text" name="geo" id="geo" placeholder="Ort" class="form-control">
+        <label for="birthday">Geburtstag</label><br>
+        <input type="date" name="birthday" id="birthday" placeholder="Geburtstag" class="form-control">
+
+        <button class="btn btn-primary" type="submit">speichern</button>
+      </div>
+    </form>
+
+    <form id="loginform" method="post" enctype="multipart/form-data" class="row g-3">
+      <div class="col-md-6">
+        <h2>User anmelden</h2>
+        <input type="text" name="lguser" id="lguser" placeholder="Username" required class="form-control">
+        <input type="password" name="lgpassword" id="lgpassword" placeholder="Password" required class="form-control">
+        <button class="btn btn-primary  my-2" type="submit">Login</button>
+        <input class="btn btn-primary newuser" type="button" value="neuer User" name="newUser" class="form-control">
+      </div>
+    </form>
+
+    <form id="uploadform" method="post" enctype="multipart/form-data" class="row g-3">
+      <div class="col-md-8">
+        <h2 id="uploadh2">Bilder</h2>
+        <label for="files">Bildauswahl </label>
+        
+        <input id="files" type="file" name="files[]" multiple class="form-control">
+        <div>
+          <ul class="filelist row"></ul>
+        </div>
+        <br>
+        <input class="btn btn-primary" type="submit" value="Upload File" name="submit" class="form-control">
+        <div id="result"></div>
+        
+      </div>
+    </form>
+
+    <!-- <img src = 'http://127.0.0.1/fl/data/631df345bc775/2/IMG_20200712_190322.jpg' alt="Girl in a jacket"> -->
+    
+
+    
+
+  </div>
+
+  <script src="upload.js"></script>
+</body>
+
+</html>
