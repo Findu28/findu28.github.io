@@ -1,35 +1,41 @@
-<?php 
-$response = "";
-$status = 0;
-$user = isset($_POST['user']) ? $_POST['user'] : null;
-$password = isset($_POST['password']) ? $_POST['password'] : null;
+<?php
 $status = 0;
 $response = "no data";
 
-if ($user && $password) {
-  if (file_exists("user.json")) {
-    $myfile = fopen("user.json", "r") or die("Unable to open file!");
-    // Output one line until end-of-file
+if ($_SERVER ["REQUEST_METHOD"] === "POST") {
+  $path = $_POST['dir']; // "filedirectory/";
 
-    while(!feof($myfile)) {
-      $line = fgets($myfile);
-      if (strlen($line) > 0) {
-        $a =json_decode($line);
-        if ($a->user == $user) {
+  $user = isset($_POST['user']) ? $_POST['user'] : null;
+  $user = strtolower($user);
+  $password = isset($_POST['password']) ? $_POST['password'] : null;
+
+  // check Directories
+  if (!is_dir($path)){
+    mkdir($path);
+  }
+  $userFileName = $path . "/" . "user.json";
+  
+  if ($user && $password) {
+    if (file_exists($userFileName)) {
+      $users = json_decode(file_get_contents($userFileName), true);
+      foreach ($users as $u) {
+        // print_r($u);
+        if ( $u['user'] == $user) {
+          // User exists
+          $found = true;
+
           // user found -> check password
           $status = 1;
-          if (password_verify($password, $a->password)) {
-            $response = $a;
+          if (password_verify($password, $u['password'])) {
+            $response = $u;
             $status = 1;
           } else {
             $status = 2;
           }
-          // $response = password_verify($password, $a->password) ? $a : "";
           break;
         }
       }
     }
-    fclose($myfile);
   }
 }
 // echo $response;
